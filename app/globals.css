@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────
+   CSS Custom Properties — shadcn/ui system
+   ───────────────────────────────────────── */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --radius: 0.625rem;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+  }
+}
+
+/* ─────────────────────────────────────────
+   Base resets
+   ───────────────────────────────────────── */
+@layer base {
+  *,
+  ::before,
+  ::after {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+    overflow-x: hidden;
+  }
+
+  /* Remove default list styles on semantic lists */
+  :where(ul, ol):where([class]) {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Smooth focus rings */
+  :focus-visible {
+    @apply outline-none ring-2 ring-neutral-950 ring-offset-2;
+  }
+
+  /* Reduced motion at OS level */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ─────────────────────────────────────────
+   Utility classes
+   ───────────────────────────────────────── */
+@layer utilities {
+  /* Gradient text — neutral */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #0a0a0a 0%, #404040 100%);
+  }
+
+  /* Gradient text — brand teal */
+  .text-gradient-brand {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #0d96a0 0%, #14b8c4 55%, #28c7d3 100%);
+  }
+
+  /* Subtle dot grid background */
+  .bg-dot-grid {
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Glass panel */
+  .glass {
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  /* Section vertical rhythm — mobile-first: tighter on xs, breathe on md+ */
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  /* Balanced text wrapping */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Gradient border — brand teal */
+  .border-gradient-brand {
+    position: relative;
+  }
+
+  .border-gradient-brand::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #14b8c4, #28c7d3);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  /* Dot grid — light dots for dark section backgrounds */
+  .bg-dot-grid-light {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* ─────────────────────────────────────────
+     Semantic surface helpers
+     ───────────────────────────────────────── */
+
+  /* Lighter alternate section background */
+  .surface-subtle {
+    @apply bg-neutral-50/70;
+  }
+
+  /* Primary dark section surface */
+  .surface-dark {
+    @apply bg-navy-900;
+  }
+
+  /* ─────────────────────────────────────────
+     Card anatomy — encode the card language
+     in composable utilities rather than
+     repeating class lists in every component.
+     ───────────────────────────────────────── */
+
+  /* Base light card — combine with hover:shadow-card-lg hover:-translate-y-1.5 */
+  .card-base {
+    @apply rounded-2xl border border-neutral-200 bg-white shadow-card transition-all duration-300;
+  }
+
+  /* Base dark card */
+  .card-base-dark {
+    @apply rounded-2xl border border-navy-700/60 bg-navy-800/50 transition-all duration-300;
+  }
+
+  /* Featured / highlighted card (brand outline ring) */
+  .card-featured {
+    @apply rounded-2xl border border-brand-200/70 shadow-card-lg ring-1 ring-brand-200/40;
+  }
+
+  /* ─────────────────────────────────────────
+     Typography system utilities
+     ───────────────────────────────────────── */
+
+  /* Eyebrow label — always compose with a text-* color */
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.12em];
+  }
+
+  /* Section h2 helper — add text-display-md and a color */
+  .section-heading {
+    @apply text-balance font-extrabold tracking-tight;
+  }
+
+  /* Section subtitle / body copy — responsive */
+  .section-body {
+    @apply text-pretty text-base sm:text-lg leading-relaxed;
+  }
+
+  /* ─────────────────────────────────────────
+     Premium outline — selected / featured state
+     Uses box-shadow so it works with border-radius
+     without disrupting layout.
+     ───────────────────────────────────────── */
+
+  .outline-premium {
+    box-shadow:
+      0 0 0 1px rgba(20, 184, 196, 0.40),
+      0 0 0 4px rgba(20, 184, 196, 0.08);
+  }
+
+  /* ─────────────────────────────────────────
+     High-trust CTA glow
+     Apply to brand-tinted primary buttons.
+     ───────────────────────────────────────── */
+
+  .cta-glow {
+    @apply transition-shadow duration-base;
+  }
+
+  .cta-glow:hover {
+    box-shadow: 0 0 0 4px rgba(20, 184, 196, 0.22);
+  }
+
+  /* ─────────────────────────────────────────
+     Icon chip base contexts
+     Pair with a size class (h-8 w-8, h-11 w-11…)
+     ───────────────────────────────────────── */
+
+  .icon-chip-light {
+    @apply flex shrink-0 items-center justify-center rounded-xl border border-neutral-100 bg-neutral-50;
+  }
+
+  .icon-chip-brand {
+    @apply flex shrink-0 items-center justify-center rounded-xl border border-brand-200 bg-brand-50;
+  }
+
+  .icon-chip-dark {
+    @apply flex shrink-0 items-center justify-center rounded-xl border border-navy-600 bg-navy-900;
+  }
+
+  /* ─────────────────────────────────────────
+     Focus ring override for dark surfaces
+     ───────────────────────────────────────── */
+
+  .dark-focus :focus-visible {
+    @apply outline-none ring-2 ring-brand-400 ring-offset-2 ring-offset-navy-900;
+  }
+}

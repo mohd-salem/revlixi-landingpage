@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/marketing/hero";
 import { ProofRibbon } from "@/components/marketing/proof-ribbon";
-import { LogoBar } from "@/components/marketing/logo-bar";
 import { HowItWorks } from "@/components/marketing/how-it-works";
 import { ProductFamily } from "@/components/marketing/product-family";
 import dynamic from "next/dynamic";
@@ -66,7 +65,6 @@ export default function HomePage() {
       <JsonLd schema={amazonCatalogSchema(catalog)} />
       <Hero />
       <ProofRibbon />
-      <LogoBar />
       <ShopSection />
       <HowItWorks />
       <ProductFamily />

@@ -2,7 +2,7 @@ import type { ProofStat } from "@/types";
 
 export const proofStats: ProofStat[] = [
   {
-    value: "500+",
+    value: "30000+",
     label: "Businesses",
     sublabel: "Across the US and counting",
   },

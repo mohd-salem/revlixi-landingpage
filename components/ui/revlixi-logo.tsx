@@ -98,7 +98,7 @@ export function RevlixiLogo({
 
   return (
     <Image
-      src="/images/logo.png"
+      src="/images/logo.jpg"
       alt={alt}
       width={width}
       height={height}

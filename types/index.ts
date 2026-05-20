@@ -197,7 +197,7 @@ export interface ShowcaseFamily {
 
 export type CatalogStatus      = "active" | "out-of-stock";
 export type CatalogColor       = "black" | "white";
-export type CatalogProductType = "stand" | "card" | "sticker";
+export type CatalogProductType = "stand-classic" | "stand-new" | "card" | "sticker";
 
 /** An individual Amazon SKU (ASIN + pack size + price) */
 export interface CatalogVariant {
@@ -221,4 +221,6 @@ export interface CatalogProduct {
   description:   string;
   icon:          ProductIcon;
   colorVariants: Record<CatalogColor, CatalogVariant[]>;
+  /** Per-colour product images. Key is color, value is /public-relative path. */
+  images?:       Partial<Record<CatalogColor, string>>;
 }

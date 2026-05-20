@@ -134,7 +134,7 @@
 
   /* Section vertical rhythm — mobile-first: tighter on xs, breathe on md+ */
   .section-padding {
-    @apply py-16 md:py-24 lg:py-32;
+    @apply py-10 md:py-14 lg:py-20;
   }
 
   /* Balanced text wrapping */

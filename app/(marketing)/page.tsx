@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/marketing/hero";
-import { ProofRibbon } from "@/components/marketing/proof-ribbon";
 import { HowItWorks } from "@/components/marketing/how-it-works";
 import dynamic from "next/dynamic";
 // ProductShowcase is the largest client bundle on the page (tab state,
@@ -42,14 +41,14 @@ export const metadata: Metadata = generatePageMetadata({
     "QR review card",
     "Google review stand",
     "NFC review sticker",
-    "review hardware for business",
+    "Review System for business",
     "tap to review",
     "no subscription review tool",
     "google review NFC card",
     "buy google review stand amazon",
     "review kiosk for business",
     "NFC tap to review",
-    "google review hardware",
+    "google Review System",
   ],
 });
 
@@ -60,10 +59,9 @@ export default function HomePage() {
       <JsonLd schema={itemListSchema(products)} />
       <JsonLd schema={amazonCatalogSchema(catalog)} />
       <Hero />
-      <ProofRibbon />
       <ShopSection />
       <HowItWorks />
-      <ProductShowcase />
+      {/* <ProductShowcase /> */}
       <GrowthSection />
       <Testimonials />
       <FAQ />

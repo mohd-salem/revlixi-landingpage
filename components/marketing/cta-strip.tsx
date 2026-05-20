@@ -9,6 +9,7 @@ export function CTAStrip() {
     <section
       className="relative overflow-hidden bg-neutral-950 py-20 md:py-28 lg:py-32"
       aria-labelledby="cta-heading"
+      data-nav-theme="dark"
     >
       {/* Background orbs */}
       <div

@@ -154,6 +154,16 @@ function NfcDemoVisual({ reduce }: { reduce: boolean | null }) {
   );
 }
 
+// ─── Hero stats ─────────────────────────────────────────────────────────────
+
+const HERO_STATS = [
+  { value: "30,000+",  label: "Businesses",          sub: "Across the US and counting" },
+  { value: "4.9",      label: "Avg customer rating",  sub: "From 1,200+ verified reviews" },
+  { value: "287%",     label: "Review growth",        sub: "Median lift within 60 days" },
+  { value: "< 1 sec",  label: "Tap-to-review",        sub: "From NFC tap to open form" },
+  { value: "$0 /mo",   label: "Ongoing fees",         sub: "One-time purchase. Always." },
+] as const;
+
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 export function Hero() {
@@ -162,7 +172,8 @@ export function Hero() {
   return (
     <section
       className="relative overflow-hidden bg-navy-900"
-      aria-label="REVLIXI review hardware"
+      aria-label="REVLIXI Review System"
+      data-nav-theme="dark"
     >
       {/* Ambient orbs */}
       <div
@@ -191,7 +202,7 @@ export function Hero() {
 
           {/* Sub */}
           <p className="mb-7 sm:mb-9 text-pretty text-base sm:text-lg leading-relaxed text-neutral-400 lg:max-w-[480px] animate-hero-fade-up [animation-delay:0.18s]">
-            REVLIXI NFC + QR hardware puts your review request in front of
+            REVLIXI NFC + QR Review System puts your review request in front of
             customers at the exact moment they’re happiest. One tap opens your
             Google page directly — no app, no friction, no follow-up.
           </p>
@@ -200,7 +211,7 @@ export function Hero() {
           <div className="mb-7 sm:mb-9 flex flex-col items-center gap-3 sm:flex-row lg:items-start animate-hero-fade-up [animation-delay:0.27s]">
             <Button size="xl" variant="gold" asChild>
               <Link href="#shop">
-                Shop Review Hardware
+                Shop Review Review System
                 <ArrowRight className="ml-1 h-5 w-5" aria-hidden="true" />
               </Link>
             </Button>
@@ -243,6 +254,25 @@ export function Hero() {
         >
           <NfcDemoVisual reduce={shouldReduceMotion} />
         </motion.div>
+      </div>
+
+      {/* ── Stats strip ───────────────────────────────────────────────────── */}
+      <div className="relative z-10 border-t border-navy-800/50" aria-label="REVLIXI by the numbers">
+        <div className="container py-8 sm:py-10 lg:py-12">
+          <dl className="grid grid-cols-2 gap-x-6 gap-y-7 sm:grid-cols-3 lg:grid-cols-5">
+            {HERO_STATS.map(({ value, label, sub }) => (
+              <div key={label} className="flex flex-col gap-0.5">
+                <dt className="text-2xl font-extrabold leading-none tracking-tight text-white sm:text-3xl">
+                  {value}
+                </dt>
+                <dd className="mt-1.5 text-[11px] font-bold uppercase tracking-[0.09em] text-brand-400">
+                  {label}
+                </dd>
+                <span className="text-[11px] leading-snug text-neutral-500">{sub}</span>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
 
       {/* Scroll hint */}

@@ -16,7 +16,7 @@ export function organizationSchema() {
     url: siteConfig.url,
     logo: {
       "@type": "ImageObject",
-      url: `${siteConfig.url}/logo.png`,
+      url: `${siteConfig.url}/images/logo.png`,
       width: 200,
       height: 50,
     },
@@ -106,9 +106,9 @@ export function itemListSchema(products: Product[]) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "REVLIXI Review Hardware — Product Family",
+    name: "REVLIXI Review System — Product Family",
     description:
-      "NFC + QR review hardware for businesses. Choose the format that fits your workflow.",
+      "NFC + QR Review System for businesses. Choose the format that fits your workflow.",
     itemListElement: products.map((product, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -161,9 +161,9 @@ export function amazonCatalogSchema(catalog: CatalogProduct[]) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "REVLIXI Google Review Hardware — Full Catalog",
+    name: "REVLIXI Google Review System — Full Catalog",
     description:
-      "NFC + QR Google review hardware available on Amazon. Stands, cards, and stickers in black and white, multiple pack sizes.",
+      "NFC + QR Google Review System available on Amazon. Stands, cards, and stickers in black and white, multiple pack sizes.",
     itemListElement: items.map((item, i) => ({
       "@type": "ListItem",
       position: i + 1,

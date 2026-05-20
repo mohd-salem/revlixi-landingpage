@@ -1,15 +1,17 @@
 // ─── content/catalog.ts ───────────────────────────────────────────────────────
-// Full REVLIXI Amazon product catalog — 3 product types, 2 colours, all packs.
+// Full REVLIXI Amazon product catalog — 2 stand models + card + sticker,
+// 2 colours, all packs.
+//
+// Stand models:
+//   stand-classic  — Original series. Black 2-pack promoted as "1+1 FREE".
+//   stand-new      — New series. Standard 2 / 3 / 5 / 10-pack.
 //
 // Rules applied:
-//   • Search-suppressed listings are excluded entirely.
 //   • Out-of-stock listings are included with status: "out-of-stock" so the
-//     UI can show an "Out of Stock" badge and a "Notify me on Amazon" link.
-//   • Where multiple series exist for the same qty/colour (Original vs New
-//     Stand series), the best-stocked active listing is chosen.
+//     UI shows a "Notify me on Amazon" CTA.
 //   • All Amazon URLs include ?ref=revlixi_lp for landing-page attribution.
 //
-// Data last verified: 2026-05-19
+// Data last verified: 2026-05-20
 // ──────────────────────────────────────────────────────────────────────────────
 
 import type { CatalogProduct, CatalogVariant } from "@/types";
@@ -17,17 +19,67 @@ import type { CatalogProduct, CatalogVariant } from "@/types";
 const ref = "?ref=revlixi_lp";
 const amz = (asin: string): string => `https://www.amazon.com/dp/${asin}${ref}`;
 
-// ─── Stand variants ───────────────────────────────────────────────────────────
-// Black: Original Single (best-seller) + New Series 2 / 3 / 5 / 10-Pack.
-// White: Original Single + New Series 2 / 3 / 5 / 10-Pack.
+// ─── Classic Stand variants ───────────────────────────────────────────────────
+// Original series — the flagship "1+1 Free" 2-pack deal.
 
-const standBlack: CatalogVariant[] = [
+const classicStandBlack: CatalogVariant[] = [
   {
     asin: "B0DPDFMLT8", amazonURL: amz("B0DPDFMLT8"),
     qty: 2, packLabel: "1 + 1 Free",
     price: 29.99, priceDisplay: "$29.99", perUnit: "$14.99 each",
     color: "black", status: "active", badge: "Best Seller",
   },
+  {
+    asin: "B0GK57LQ5F", amazonURL: amz("B0GK57LQ5F"),
+    qty: 3, packLabel: "3-Pack",
+    price: 35.99, priceDisplay: "$35.99", perUnit: "$12.00 each",
+    color: "black", status: "active",
+  },
+  {
+    asin: "B0GKK8CZJG", amazonURL: amz("B0GKK8CZJG"),
+    qty: 5, packLabel: "5-Pack",
+    price: 59.99, priceDisplay: "$59.99", perUnit: "$12.00 each",
+    color: "black", status: "active",
+  },
+  {
+    asin: "B0GKLP6M5H", amazonURL: amz("B0GKLP6M5H"),
+    qty: 10, packLabel: "10-Pack",
+    price: 99.99, priceDisplay: "$99.99", perUnit: "$10.00 each",
+    color: "black", status: "active", badge: "Best Value",
+  },
+];
+
+const classicStandWhite: CatalogVariant[] = [
+  {
+    asin: "B0FDX2YJBZ", amazonURL: amz("B0FDX2YJBZ"),
+    qty: 2, packLabel: "1 + 1 Free",
+    price: 25.90, priceDisplay: "$25.90", perUnit: "$12.95 each",
+    color: "white", status: "active", badge: "Best Seller",
+  },
+  {
+    asin: "B0GKCWTY7V", amazonURL: amz("B0GKCWTY7V"),
+    qty: 3, packLabel: "3-Pack",
+    price: 35.99, priceDisplay: "$35.99", perUnit: "$12.00 each",
+    color: "white", status: "active",
+  },
+  {
+    asin: "B0GKJB7PSN", amazonURL: amz("B0GKJB7PSN"),
+    qty: 5, packLabel: "5-Pack",
+    price: 59.99, priceDisplay: "$59.99", perUnit: "$12.00 each",
+    color: "white", status: "active",
+  },
+  {
+    asin: "B0GKJ5NQ3M", amazonURL: amz("B0GKJ5NQ3M"),
+    qty: 10, packLabel: "10-Pack",
+    price: 99.99, priceDisplay: "$99.99", perUnit: "$10.00 each",
+    color: "white", status: "active", badge: "Best Value",
+  },
+];
+
+// ─── New Stand variants ───────────────────────────────────────────────────────
+// New series — standard 2 / 3 / 5 / 10-pack.
+
+const newStandBlack: CatalogVariant[] = [
   {
     asin: "B0GK54LRZW", amazonURL: amz("B0GK54LRZW"),
     qty: 2, packLabel: "2-Pack",
@@ -54,13 +106,7 @@ const standBlack: CatalogVariant[] = [
   },
 ];
 
-const standWhite: CatalogVariant[] = [
-  {
-    asin: "B0FDX2YJBZ", amazonURL: amz("B0FDX2YJBZ"),
-    qty: 1, packLabel: "Single",
-    price: 25.90, priceDisplay: "$25.90", perUnit: "$25.90 each",
-    color: "white", status: "active",
-  },
+const newStandWhite: CatalogVariant[] = [
   {
     asin: "B0GKC61JVM", amazonURL: amz("B0GKC61JVM"),
     qty: 2, packLabel: "2-Pack",
@@ -181,13 +227,30 @@ const stickerBlack: CatalogVariant[] = [
 
 export const catalog: CatalogProduct[] = [
   {
-    type: "stand",
-    label: "Review Stand",
-    tagline: "The countertop that converts",
+    type: "stand-classic",
+    label: "Classic Stand",
+    tagline: "Original series — 1+1 free deal",
     description:
-      "Heavy-gauge NFC + QR stand for counters, host stands, and reception desks. Place it once — it captures Google reviews every day with zero staff involvement.",
+      "Our original countertop stand. The black 2-pack ships as 1+1 Free — you get two stands for the price of one. Perfect for businesses that want maximum value at the counter.",
     icon: "monitor",
-    colorVariants: { black: standBlack, white: standWhite },
+    colorVariants: { black: classicStandBlack, white: classicStandWhite },
+    images: {
+      black: "/images/classic-stand/black.jpg",
+      white: "/images/classic-stand/white.jpg",
+    },
+  },
+  {
+    type: "stand-new",
+    label: "New Stand",
+    tagline: "New model — cleaner design",
+    description:
+      "The latest REVLIXI stand with a refined design. Available in 2, 3, 5, and 10-pack sizes in black and white — ships via Amazon FBA with free returns.",
+    icon: "monitor",
+    colorVariants: { black: newStandBlack, white: newStandWhite },
+    images: {
+      black: "/images/new-stand/black.jpg",
+      white: "/images/new-stand/white.jpg",
+    },
   },
   {
     type: "card",
@@ -197,6 +260,10 @@ export const catalog: CatalogProduct[] = [
       "Credit-card-sized NFC + QR card for service pros. Hand it over at job completion — customers tap and review on the spot, no app required.",
     icon: "credit-card",
     colorVariants: { black: cardBlack, white: cardWhite },
+    images: {
+      black: "/images/cards/black.jpg",
+      white: "/images/cards/white.jpg",
+    },
   },
   {
     type: "sticker",
@@ -206,5 +273,9 @@ export const catalog: CatalogProduct[] = [
       "Weatherproof NFC + QR sticker with industrial adhesive. Bonds permanently to windows, counters, equipment, and vehicles — review capture wherever customers pause.",
     icon: "sticker",
     colorVariants: { black: stickerBlack, white: stickerWhite },
+    images: {
+      black: "/images/stickers/black.jpg",
+      white: "/images/stickers/white.jpg",
+    },
   },
 ];

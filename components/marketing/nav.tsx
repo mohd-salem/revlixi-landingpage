@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 export function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDarkSection, setIsDarkSection] = useState(true); // hero is dark on initial load
 
   const handleScroll = useCallback(() => {
     setIsScrolled(window.scrollY > 24);
@@ -21,6 +22,44 @@ export function Nav() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
+
+  // Switch logo variant based on whether the nav is over a dark-background section.
+  // When above the fold the hero is always dark; when scrolled, observe dark sections.
+  useEffect(() => {
+    if (!isScrolled) {
+      setIsDarkSection(true);
+      return;
+    }
+
+    const darkEls = document.querySelectorAll<HTMLElement>('[data-nav-theme="dark"]');
+    if (!darkEls.length) {
+      setIsDarkSection(false);
+      return;
+    }
+
+    // Track which dark sections currently occupy the top ~15 % of the viewport
+    // (where the fixed nav bar sits). A Set lets us handle multiple observers
+    // firing in separate batches correctly.
+    const intersecting = new Set<Element>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) intersecting.add(e.target);
+          else intersecting.delete(e.target);
+        });
+        setIsDarkSection(intersecting.size > 0);
+      },
+      // Shrink the root from the bottom so only the top ~15 % fires — this
+      // covers the 64 px nav height on any reasonable viewport.
+      { rootMargin: "0px 0px -85% 0px", threshold: 0 }
+    );
+
+    darkEls.forEach((el) => observer.observe(el));
+    return () => {
+      observer.disconnect();
+      intersecting.clear();
+    };
+  }, [isScrolled]);
 
   // Close mobile menu on resize to desktop
   useEffect(() => {
@@ -50,7 +89,7 @@ export function Nav() {
           className="flex items-center hover:opacity-80 transition-opacity focus-visible:ring-2 focus-visible:ring-brand-500 rounded-md"
           aria-label="REVLIXI — home"
         >
-          <RevlixiLogo height={34} />
+          <RevlixiLogo height={34} variant={isDarkSection ? "dark" : "light"} />
         </Link>
 
         {/* Desktop navigation */}

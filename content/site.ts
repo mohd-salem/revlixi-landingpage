@@ -3,7 +3,7 @@ import type { NavLink } from "@/types";
 export const siteConfig = {
   name: "REVLIXI",
   description:
-    "NFC + QR review hardware that turns every customer interaction into a 5-star review opportunity.",
+    "NFC + QR Review System that turns every customer interaction into a 5-star review opportunity.",
   url: "https://revlixi.com",
   nav: [
     { label: "Shop",          href: "#shop"          },

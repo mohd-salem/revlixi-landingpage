@@ -26,7 +26,7 @@ export const metadata: Metadata = generatePageMetadata({
   path: "/compare",
   keywords: [
     "REVLIXI stand vs card vs sticker",
-    "NFC review hardware comparison",
+    "NFC Review System comparison",
     "best Google review tool for business",
     "compare review stands cards stickers",
   ],

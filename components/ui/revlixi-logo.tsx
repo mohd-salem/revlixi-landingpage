@@ -74,7 +74,7 @@ export function RevlixiWordmark({ className }: WordmarkProps) {
 }
 
 // ─── Full logo (PNG image) ────────────────────────────────────────────────────
-// Uses the brand PNG from /public/images/logo.png.
+// Uses the brand JPG from /public/images/logo.jpg.
 // object-cover crops the padding that surrounds the logo content in the
 // square source file, ensuring the mark renders crisply at nav scale.
 
@@ -84,21 +84,29 @@ interface LogoProps {
   height?: number;
   /** Optional accessible label override. */
   alt?: string;
+  /**
+   * "dark"  → hero-logo.png  (light logo, for dark/navy backgrounds)
+   * "light" → logo.jpg       (dark logo, for light/white backgrounds)
+   * Default: "dark"
+   */
+  variant?: "dark" | "light";
 }
 
 export function RevlixiLogo({
   className,
   height = 36,
   alt = "REVLIXI",
+  variant = "dark",
 }: LogoProps) {
   // The source image is 1080×1080 with the logo content centred in the middle
   // ~21% of the height. Displaying at a 4:1 aspect with object-cover zooms in
   // on that centre band so the wordmark is fully legible at small nav sizes.
-  const width = Math.round(height * 4);
+  const width = Math.round(height * 5);
+  const src = variant === "dark" ? "/images/hero-logo.png" : "/images/logo.png";
 
   return (
     <Image
-      src="/images/logo.jpg"
+      src={src}
       alt={alt}
       width={width}
       height={height}

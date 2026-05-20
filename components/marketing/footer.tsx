@@ -20,10 +20,10 @@ export function Footer() {
               className="inline-flex hover:opacity-75 transition-opacity"
               aria-label="REVLIXI — home"
             >
-              <RevlixiLogo height={30} />
+              <RevlixiLogo height={30} variant="light" />
             </Link>
             <p className="mt-4 max-w-[220px] text-sm leading-relaxed text-neutral-500 text-pretty">
-              NFC + QR review hardware for businesses that want more 5-star
+              NFC + QR Review System for businesses that want more 5-star
               reviews — with zero friction.
             </p>
             {/* Social links */}
@@ -111,7 +111,7 @@ export function Footer() {
             &copy; {currentYear} REVLIXI. All rights reserved.
           </p>
           <p className="text-xs text-neutral-400">
-            NFC + QR review hardware for businesses
+            NFC + QR Review System for businesses
           </p>
         </div>
       </div>

@@ -98,6 +98,7 @@ export function Testimonials() {
       id="testimonials"
       className="section-padding bg-navy-900 bg-dot-grid-light"
       aria-labelledby="testimonials-heading"
+      data-nav-theme="dark"
     >
       <div className="container">
         {/* Aggregate score */}

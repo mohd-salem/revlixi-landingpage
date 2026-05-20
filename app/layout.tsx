@@ -25,15 +25,15 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://revlixi.com"),
   title: {
-    default: "REVLIXI — NFC + QR Review Hardware for Businesses",
+    default: "REVLIXI — NFC + QR Review System for Businesses",
     template: "%s | REVLIXI",
   },
   description:
-    "Premium NFC + QR review hardware for businesses. Turn every customer interaction into a 5-star review with REVLIXI stands, cards, and stickers. No app required.",
+    "Premium NFC + QR Review System for businesses. Turn every customer interaction into a 5-star review with REVLIXI stands, cards, and stickers. No app required.",
   keywords: [
     "NFC review stand",
     "QR review card",
-    "review hardware",
+    "Review System",
     "Google reviews NFC",
     "review stand for business",
     "NFC review sticker",
@@ -60,23 +60,23 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://revlixi.com",
     siteName: "REVLIXI",
-    title: "REVLIXI — NFC + QR Review Hardware for Businesses",
+    title: "REVLIXI — NFC + QR Review System for Businesses",
     description:
-      "Premium NFC + QR review hardware for businesses. Turn every customer interaction into a 5-star review.",
+      "Premium NFC + QR Review System for businesses. Turn every customer interaction into a 5-star review.",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "REVLIXI — NFC + QR Review Hardware",
+        alt: "REVLIXI — NFC + QR Review System",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "REVLIXI — NFC + QR Review Hardware for Businesses",
+    title: "REVLIXI — NFC + QR Review System for Businesses",
     description:
-      "Premium NFC + QR review hardware for businesses. Turn every customer interaction into a 5-star review.",
+      "Premium NFC + QR Review System for businesses. Turn every customer interaction into a 5-star review.",
     images: ["/og.png"],
     creator: "@revlixi",
   },

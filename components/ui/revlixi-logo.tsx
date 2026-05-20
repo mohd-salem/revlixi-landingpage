@@ -103,6 +103,7 @@ export function RevlixiLogo({
       width={width}
       height={height}
       className={cn("object-cover", className)}
+      style={{ width: `${width}px`, height: `${height}px` }}
       priority
     />
   );

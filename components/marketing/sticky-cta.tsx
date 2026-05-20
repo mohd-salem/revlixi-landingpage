@@ -45,16 +45,17 @@ export function StickyCTA() {
               <p className="truncate text-sm font-semibold text-neutral-950">
                 Start collecting more 5-star reviews
               </p>
-              <p className="hidden sm:block text-xs text-neutral-400">
-                From $19 · No subscription · Ships in 1–2 days
-              </p>
             </div>
 
             <Button size="sm" variant="gold" asChild className="shrink-0">
-              <Link href="#shop">
-                Shop Now
+              <a
+                href="https://www.amazon.com/revlixi"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Shop on Amazon
                 <ArrowRight className="ml-1 h-3.5 w-3.5" aria-hidden="true" />
-              </Link>
+              </a>
             </Button>
 
             <button

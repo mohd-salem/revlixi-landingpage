@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { Instagram, Twitter } from "lucide-react";
 import { RevlixiLogo } from "@/components/ui/revlixi-logo";
+import { LegalModal } from "@/components/ui/legal-modal";
 import { siteConfig, footerNav } from "@/content/site";
+import {
+  privacyPolicy,
+  termsOfService,
+  shippingPolicy,
+  warrantyPolicy,
+} from "@/content/legal";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -91,16 +98,18 @@ export function Footer() {
               Legal
             </p>
             <ul className="flex flex-col gap-2.5" role="list">
-              {footerNav.legal.map((item) => (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-neutral-600 hover:text-neutral-950 transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <LegalModal doc={privacyPolicy}>Privacy Policy</LegalModal>
+              </li>
+              <li>
+                <LegalModal doc={termsOfService}>Terms of Service</LegalModal>
+              </li>
+              <li>
+                <LegalModal doc={shippingPolicy}>Shipping Policy</LegalModal>
+              </li>
+              <li>
+                <LegalModal doc={warrantyPolicy}>Warranty</LegalModal>
+              </li>
             </ul>
           </div>
         </div>

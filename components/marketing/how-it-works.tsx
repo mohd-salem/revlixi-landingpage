@@ -13,7 +13,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 const FEATURE_PILLS = [
   { icon: Zap,             label: "Opens review page in under a second"    },
-  { icon: RefreshCw,       label: "Change destination any time — no new hardware" },
+  { icon: RefreshCw,       label: "Change destination any time — no new pieces" },
   { icon: LayoutDashboard, label: "Free dashboard included, forever"       },
 ] as const;
 
@@ -24,7 +24,7 @@ export function HowItWorks() {
       surface="white"
       eyebrow="Simple by design"
       heading="Three steps to a steady stream of reviews"
-      body="No staff training. No follow-up texts. No reminders. Just hardware that works in the background while you serve your customers."
+      body="No staff training. No follow-up texts. No reminders. Just systems that work in the background while you serve your customers."
       contentGap="xl"
     >
       <StaggerChildren

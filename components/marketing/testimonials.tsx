@@ -136,11 +136,11 @@ export function Testimonials() {
 
         {/* Supporting wall */}
         <StaggerChildren
-          className="mt-6 columns-1 gap-4 sm:columns-2 lg:columns-3"
+          className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
           staggerDelay={0.07}
         >
-          {supporting.map((t) => (
-            <div key={t.id} className="mb-4">
+          {supporting.slice(0, 6).map((t) => (
+            <div key={t.id}>
               <TestimonialCard testimonial={t} />
             </div>
           ))}

@@ -3,7 +3,7 @@ import type { Step } from "@/types";
 export const steps: Step[] = [
   {
     step: 1,
-    title: "Place your REVLIXI",
+    title: "Place your REVLIXI stand, card, or sticker",
     description:
       "Set it on your counter, keep it in your pocket, or stick it to any surface. Position it where customers will naturally reach after a great experience.",
     icon: "map-pin",

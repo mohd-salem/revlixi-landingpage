@@ -57,10 +57,10 @@ export const platforms = [
 
 export const footerNav = {
   products: [
-    { label: "REVLIXI Stand",    href: "/stands"   },
-    { label: "REVLIXI Card",     href: "/cards"    },
-    { label: "REVLIXI Sticker",  href: "/stickers" },
-    { label: "Compare Products", href: "/compare"  },
+    { label: "REVLIXI Classic Stand", href: "#shop" },
+    { label: "REVLIXI New Stand",     href: "#shop" },
+    { label: "REVLIXI Classic Card",  href: "#shop" },
+    { label: "REVLIXI Sticker",       href: "#shop" },
   ],
   company: [
     { label: "How It Works",     href: "#how-it-works" },

@@ -1,19 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
+import { motion, useReducedMotion, type Easing } from "framer-motion";
 import { heroTransition, heroDelays } from "@/components/motion/tokens";
-import { ArrowRight, CheckCircle2, Star, Wifi } from "lucide-react";
+import { ArrowRight, CheckCircle2, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { RevlixiIcon } from "@/components/ui/revlixi-logo";
 import { heroTrustItems } from "@/content/site";
-import { cn } from "@/lib/utils";
 
 // ─── NFC Demo Visual ─────────────────────────────────────────────────────────
-// Pure CSS + Framer Motion illustration. Communicates: hardware → NFC tap →
-// phone opens browser → five-star review posted. No external images.
+// Stand product photo + animated phone sweeping left→right to simulate NFC tap.
 
 function NfcDemoVisual({ reduce }: { reduce: boolean | null }) {
+  // NFC rings fire when phone is near the stand's chip (timed with approach)
+  // Phone cycle = 8.0s + 2.0s repeatDelay = 10.0s. Tap at t=2.24s (times[1]=0.28).
+  // Ring base delay = 2.2s; repeatDelay = 10.0 - 1.3 = 8.7s → stays locked each cycle.
   const ringAnim = (delay: number) =>
     reduce
       ? {}
@@ -21,42 +22,46 @@ function NfcDemoVisual({ reduce }: { reduce: boolean | null }) {
           initial: { scale: 0.35, opacity: 0.7 },
           animate: { scale: [0.35, 2.4], opacity: [0.55, 0] },
           transition: {
-            duration: 1.9,
-            delay,
+            duration: 1.3,
+            delay: 2.2 + delay,
             repeat: Infinity,
-            repeatDelay: 1.0,
+            repeatDelay: 8.7,
             ease: "easeOut" as const,
           },
         };
 
+  // Phone slides from left → right (approaches stand NFC chip) → HOLDS → back left
+  // times: approach 0→28%, hold 28→55%, return 55→100%
   const phoneAnim = reduce
     ? {}
     : {
-        animate: { y: [0, -14, 0] },
+        animate: { x: [60, 180, 180, 50] },
         transition: {
-          duration: 3.4,
+          duration: 8.0,
           repeat: Infinity,
-          ease: "easeInOut" as const,
+          repeatDelay: 2.0,
+          ease: ["easeIn", "linear", "linear"] as Easing[],
+          times: [0, 0.28, 0.55, 1],
         },
       };
 
   const badgeAnim = reduce
     ? {}
     : {
-        initial: { opacity: 0, y: 18, scale: 0.88 },
-        animate: { opacity: [0, 1, 1, 0], y: [18, 4, -6, -28], scale: [0.88, 1, 1, 0.9] },
+        initial: { opacity: 0, y: 12, scale: 0.85 },
+        animate: { opacity: [0, 1, 1, 0], y: [12, 0, 0, -14], scale: [0.85, 1, 1, 0.92] },
         transition: {
-          duration: 2.6,
-          delay: 1.6,
+          duration: 1.5,
+          delay: 2.4,
           repeat: Infinity,
-          repeatDelay: 2.0,
+          repeatDelay: 8.5,
           ease: "easeOut" as const,
         },
       };
 
   return (
     <div
-      className="relative flex h-[300px] sm:h-[380px] lg:h-[460px] w-full items-center justify-center select-none overflow-visible"
+      className="relative flex h-[520px] sm:h-[660px] lg:h-[780px] w-full items-center justify-center select-none overflow-visible"
       aria-hidden="true"
     >
       {/* Ambient glow */}
@@ -67,88 +72,186 @@ function NfcDemoVisual({ reduce }: { reduce: boolean | null }) {
       {/* Dot texture */}
       <div className="pointer-events-none absolute inset-0 bg-dot-grid-light" />
 
-      <div className="relative flex flex-col items-center">
-        {/* Phone */}
-        <motion.div className="relative z-20 mb-6" {...phoneAnim}>
-          <div className="relative h-[130px] w-[78px] overflow-hidden rounded-[14px] border border-navy-600 bg-navy-800 shadow-[0_12px_40px_rgba(0,0,0,0.55)]">
-            <div className="absolute inset-[3px] flex flex-col items-center justify-center gap-1.5 rounded-[11px] bg-navy-700 p-2">
-              <div className="flex gap-0.5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-2 w-2 fill-brand-400 text-brand-400" />
-                ))}
+      <div className="relative flex items-center justify-center gap-1">
+        {/* Phone — slides left→right to simulate NFC tap */}
+        <motion.div className="relative z-20" {...phoneAnim}>
+          {/* iPhone 17 Pro Max frame */}
+          <div className="relative h-[390px] w-[180px] rounded-[38px] bg-zinc-900 shadow-[0_24px_60px_rgba(0,0,0,0.85),inset_0_0_0_1.5px_rgba(255,255,255,0.12)]">
+            {/* Volume buttons (left) */}
+            <div className="absolute -left-[3px] top-[78px] h-7 w-[3px] rounded-l-full bg-zinc-700" />
+            <div className="absolute -left-[3px] top-[116px] h-7 w-[3px] rounded-l-full bg-zinc-700" />
+            {/* Power button (right) */}
+            <div className="absolute -right-[3px] top-[100px] h-14 w-[3px] rounded-r-full bg-zinc-700" />
+            {/* Screen */}
+            <div className="absolute inset-[3px] overflow-hidden rounded-[35px] bg-white flex flex-col">
+              {/* Dynamic Island */}
+              <div className="absolute top-2.5 left-1/2 z-10 h-[13px] w-[58px] -translate-x-1/2 rounded-full bg-black" />
+              {/* Status bar */}
+              <div className="flex shrink-0 items-center justify-between px-4 pt-3 pb-0">
+                {/* Clock — "9:41" fades out when review posts, "9:42" fades in */}
+                <div className="relative mt-3 h-[10px] w-[22px]">
+                  <motion.span
+                    className="absolute left-0 top-0 text-[8px] font-semibold text-black"
+                    animate={reduce ? { opacity: 1 } : { opacity: [1, 1, 0, 0] }}
+                    transition={reduce ? {} : { duration: 8.0, repeat: Infinity, repeatDelay: 2.0, times: [0, 0.44, 0.49, 1], ease: "linear" }}
+                  >9:41</motion.span>
+                  <motion.span
+                    className="absolute left-0 top-0 text-[8px] font-semibold text-black"
+                    animate={reduce ? { opacity: 0 } : { opacity: [0, 0, 1, 1] }}
+                    transition={reduce ? {} : { duration: 8.0, repeat: Infinity, repeatDelay: 2.0, times: [0, 0.44, 0.49, 1], ease: "linear" }}
+                  >9:42</motion.span>
+                </div>
+                <div className="mt-3 flex items-center gap-1">
+                  <div className="flex items-end gap-[1.5px]">
+                    {[4, 6, 8, 10].map((h) => (
+                      <div key={h} className="w-[2px] rounded-sm bg-black" style={{ height: h }} />
+                    ))}
+                  </div>
+                  <div className="relative h-[9px] w-[15px] rounded-[2px] border border-black">
+                    <div className="absolute inset-[1.5px] right-[2px] rounded-[1px] bg-black" />
+                    <div className="absolute -right-[3px] top-1/2 h-[4px] w-[2px] -translate-y-1/2 rounded-r-sm bg-black" />
+                  </div>
+                </div>
               </div>
-              <div className="h-1 w-10 rounded-full bg-neutral-600" />
-              <div className="h-1 w-8 rounded-full bg-neutral-700" />
-              <div className="mt-1 flex h-5 w-14 items-center justify-center rounded bg-brand-600">
-                <span className="text-[7px] font-bold tracking-wide text-white">
-                  Leave Review
-                </span>
+              {/* Google Maps header */}
+              <div className="flex shrink-0 items-center gap-1.5 border-b border-gray-100 px-3 py-1.5">
+                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm">
+                  <span className="text-[9px] font-black leading-none" style={{ background: 'linear-gradient(135deg,#4285F4 0%,#4285F4 40%,#EA4335 40%,#EA4335 70%,#FBBC05 70%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>G</span>
+                </div>
+                <span className="text-[8px] font-semibold text-gray-800">Google Maps</span>
+                <div className="ml-auto flex gap-[3px]">
+                  {[0, 1, 2].map((i) => <div key={i} className="h-[3px] w-[3px] rounded-full bg-gray-400" />)}
+                </div>
+              </div>
+              {/* ── Animated screen layers (all duration=3.5 repeatDelay=0.4 = phone cycle) ── */}
+              <div className="relative flex-1 overflow-hidden">
+
+                {/* Layer 1 — Business listing (visible 0 → ~31%) */}
+                <motion.div
+                  className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-3"
+                  animate={reduce ? { opacity: 0 } : { opacity: [1, 1, 0, 0] }}
+                  transition={reduce ? {} : { duration: 8.0, repeat: Infinity, repeatDelay: 2.0, times: [0, 0.26, 0.31, 1], ease: "linear" }}
+                >
+                  <div className="w-full rounded-xl bg-gray-50 p-2.5">
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-600">
+                        <span className="text-[10px] font-black text-white">R</span>
+                      </div>
+                      <div>
+                        <p className="text-[9px] font-bold text-gray-900">REVLIXI</p>
+                        <div className="mt-0.5 flex items-center gap-0.5">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <Star key={i} className="h-2 w-2 fill-amber-400 text-amber-400" />
+                          ))}
+                          <span className="ml-0.5 text-[6px] text-gray-400">4.9 (128)</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-center text-[7px] leading-tight text-gray-500">Tap your NFC card to share your experience</p>
+                  <div className="flex h-7 w-full items-center justify-center rounded-full border border-blue-200 bg-blue-50">
+                    <span className="text-[8px] font-semibold text-blue-600">Write a review</span>
+                  </div>
+                </motion.div>
+
+                {/* Layer 2 — Write review form (visible ~30 → ~46%) */}
+                <motion.div
+                  className="absolute inset-0 flex flex-col gap-2 p-3 pt-4"
+                  animate={reduce ? { opacity: 0 } : { opacity: [0, 0, 1, 1, 0, 0] }}
+                  transition={reduce ? {} : { duration: 8.0, repeat: Infinity, repeatDelay: 2.0, times: [0, 0.29, 0.34, 0.41, 0.46, 1], ease: "linear" }}
+                >
+                  <p className="text-center text-[9px] font-bold text-gray-800">Rate your experience</p>
+                  <div className="flex justify-center gap-1">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className="h-5 w-5 fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                  <div className="flex h-[52px] w-full items-start rounded-lg border border-gray-200 bg-gray-50 p-2">
+                    <p className="text-[7px] italic text-gray-400">Tell others about your visit…</p>
+                  </div>
+                  <div className="flex h-7 w-full items-center justify-center rounded-full bg-blue-500">
+                    <span className="text-[8px] font-semibold text-white">Post</span>
+                  </div>
+                </motion.div>
+
+                {/* Layer 3 — Review posted (visible ~47 → 100%) */}
+                <motion.div
+                  className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-3 pb-2"
+                  animate={reduce ? { opacity: 1 } : { opacity: [0, 0, 0, 1, 1] }}
+                  transition={reduce ? {} : { duration: 8.0, repeat: Infinity, repeatDelay: 2.0, times: [0, 0.43, 0.48, 0.52, 1], ease: "linear" }}
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-50">
+                    <CheckCircle2 className="h-7 w-7 text-green-500" />
+                  </div>
+                  <p className="text-center text-[11px] font-bold text-gray-900">Review posted!</p>
+                  <div className="flex gap-0.5">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                  <p className="text-center text-[8px] leading-tight text-gray-500">Thanks for sharing your experience</p>
+                  <div className="mt-1 flex w-full items-center gap-2 rounded-xl bg-gray-50 p-2">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-600">
+                      <span className="text-[9px] font-black text-white">R</span>
+                    </div>
+                    <div>
+                      <p className="text-[8px] font-bold text-gray-800">REVLIXI</p>
+                      <p className="text-[7px] text-gray-500">NFC Smart Stand</p>
+                    </div>
+                  </div>
+                  <div className="flex h-7 w-full items-center justify-center rounded-full bg-blue-500">
+                    <span className="text-[8px] font-semibold text-white">Share your review</span>
+                  </div>
+                </motion.div>
+
+              </div>
+              {/* Home indicator */}
+              <div className="flex h-4 shrink-0 items-center justify-center">
+                <div className="h-1 w-16 rounded-full bg-gray-300" />
               </div>
             </div>
-            <div className="absolute top-1.5 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-navy-600" />
           </div>
         </motion.div>
 
-        {/* NFC pulse rings — centered at top of stand */}
-        <div
-          className="absolute z-10"
-          style={{ top: "6.4rem", left: "50%", transform: "translateX(-50%)" }}
-        >
-          {([0, 0.55, 1.1] as const).map((delay) => (
-            <motion.div
-              key={delay}
-              className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand-400"
-              {...ringAnim(delay)}
-            />
-          ))}
-        </div>
-
-        {/* REVLIXI Stand card */}
-        <div className="relative z-10 w-[176px] rounded-2xl border border-brand-500/45 bg-navy-800 px-5 py-5 shadow-[0_0_0_1px_rgba(20,184,196,0.10),0_16px_48px_rgba(0,0,0,0.50)]">
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-brand-500/[0.06] to-transparent" />
-          <div className="relative flex flex-col items-center gap-3">
-            <RevlixiIcon size={30} color="#14b8c4" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-brand-400">
-              REVLIXI Stand
-            </span>
-            {/* Stylised QR stub */}
-            <div className="grid grid-cols-5 gap-[3px] opacity-75">
-              {[1,1,0,1,1, 1,0,0,0,1, 0,0,1,0,0, 1,0,0,0,1, 1,1,0,1,1].map((on, i) => (
-                <div
-                  key={i}
-                  className={cn(
-                    "h-[5px] w-[5px] rounded-[1px]",
-                    on ? "bg-brand-300" : "bg-navy-700"
-                  )}
-                />
+        {/* NEW CARD product image with NFC rings */}
+        <div className="relative z-10 h-[460px] w-[345px] sm:h-[580px] sm:w-[435px] lg:h-[700px] lg:w-[525px] -translate-y-[100px]">
+          {/* Badge — floats above the card */}
+          <motion.div
+            className="absolute top-[calc(34%-50px)] left-[calc(28%+20px)] z-30 flex -translate-x-1/2 whitespace-nowrap items-center gap-2 rounded-xl border border-brand-500/25 bg-navy-800/95 px-3 py-2 shadow-card-lg backdrop-blur-sm"
+            {...badgeAnim}
+          >
+            <div className="flex gap-[2px]">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="h-2.5 w-2.5 fill-amber-400 text-amber-400" />
               ))}
             </div>
-            <div className="flex items-center gap-1.5 rounded-full border border-brand-500/25 bg-brand-500/10 px-2.5 py-[3px]">
-              <Wifi className="h-2.5 w-2.5 text-brand-400" />
-              <span className="text-[9px] font-bold uppercase tracking-wide text-brand-400">
-                NFC Active
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Floating "Review posted" confirmation toast */}
-        <motion.div
-          className="absolute right-0 top-6 z-30 hidden sm:flex translate-x-[110%] items-center gap-2 rounded-xl border border-brand-500/25 bg-navy-800/95 px-3 py-2 shadow-card-lg backdrop-blur-sm"
-          {...badgeAnim}
-        >
-          <div className="flex gap-[2px]">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="h-2.5 w-2.5 fill-brand-400 text-brand-400" />
+            <span className="text-[11px] font-semibold text-neutral-200">
+              Review posted!
+            </span>
+          </motion.div>
+          {/* NFC pulse rings — aligned with the tap icon on the card image */}
+          <div className="absolute top-[55%] left-[calc(28%+20px)] z-20 -translate-x-1/2 -translate-y-1/2">
+            {([0, 0.55, 1.1] as const).map((delay) => (
+              <motion.div
+                key={delay}
+                className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand-400"
+                {...ringAnim(delay)}
+              />
             ))}
           </div>
-          <span className="text-[11px] font-semibold text-neutral-200">
-            Review posted!
-          </span>
-        </motion.div>
+          <Image
+            src="/images/hero-card.png"
+            alt="REVLIXI NEW CARD product photo"
+            fill
+            className="object-contain drop-shadow-[0_16px_40px_rgba(0,0,0,0.6)]"
+            sizes="(max-width: 640px) 345px, (max-width: 1024px) 435px, 525px"
+            quality={100}
+            priority
+          />
+        </div>
 
         {/* Counter surface shadow */}
-        <div className="mt-4 h-[5px] w-56 rounded-full bg-navy-700/60 blur-[3px]" />
+        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 h-[5px] w-56 rounded-full bg-navy-700/60 blur-[3px]" />
       </div>
     </div>
   );

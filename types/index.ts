@@ -211,6 +211,7 @@ export interface CatalogVariant {
   color:        CatalogColor;
   status:       CatalogStatus;
   badge?:       string;     // "Best Seller" | "Most Popular" | "Best Value"
+  image?:       string;     // /public-relative path to pack-specific product photo
 }
 
 /** A product line (Stand / Card / Sticker) with Black and White variants */

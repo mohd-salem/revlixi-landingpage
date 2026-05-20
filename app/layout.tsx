@@ -80,11 +80,10 @@ export const metadata: Metadata = {
     images: ["/og.png"],
     creator: "@revlixi",
   },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
+  icons: [
+    { rel: "icon", url: "/hero-ico-black.ico", media: "(prefers-color-scheme: light)" },
+    { rel: "icon", url: "/hero-ico-white.ico", media: "(prefers-color-scheme: dark)" },
+  ],
 };
 
 export default function RootLayout({

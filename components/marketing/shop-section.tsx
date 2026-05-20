@@ -73,6 +73,19 @@ function PackCard({ variant }: { variant: CatalogVariant }) {
         </span>
       )}
 
+      {/* Pack image */}
+      {variant.image && (
+        <div className="relative -mx-1 h-36 overflow-hidden rounded-xl bg-neutral-50">
+          <Image
+            src={variant.image}
+            alt={variant.packLabel}
+            fill
+            className={cn("object-contain p-2", isOOS && "opacity-40 grayscale")}
+            sizes="(max-width: 640px) 50vw, 220px"
+          />
+        </div>
+      )}
+
       {/* Price block */}
       <div>
         <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-neutral-400">

@@ -4,6 +4,15 @@ import { SectionShell } from "@/components/ui/section-shell";
 import { StatCallout } from "@/components/ui/stat-callout";
 import { growthBefore, growthAfter } from "@/content/growth";
 
+const USE_CASE_CHIPS = [
+  "Restaurants & Cafés",
+  "Contractors & Trades",
+  "Salons & Spas",
+  "Retail Stores",
+  "Healthcare & Dental",
+  "Real Estate Agents",
+] as const;
+
 export function GrowthSection() {
   return (
     <SectionShell
@@ -67,6 +76,21 @@ export function GrowthSection() {
           description="Based on active REVLIXI customers across all three hardware formats."
           className="mt-8"
         />
+      </FadeIn>
+
+      {/* Use-case chips */}
+      <FadeIn delay={0.20} className="mt-8 flex flex-wrap justify-center gap-2">
+        <p className="w-full text-center text-xs font-semibold uppercase tracking-[0.1em] text-neutral-400 mb-3">
+          Works for
+        </p>
+        {USE_CASE_CHIPS.map((label) => (
+          <span
+            key={label}
+            className="rounded-full border border-neutral-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-neutral-600 shadow-sm"
+          >
+            {label}
+          </span>
+        ))}
       </FadeIn>
     </SectionShell>
   );

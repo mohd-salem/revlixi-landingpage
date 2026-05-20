@@ -1,5 +1,6 @@
-import { MapPin, Smartphone, Star } from "lucide-react";
+import { MapPin, Smartphone, Star, Zap, RefreshCw, LayoutDashboard } from "lucide-react";
 import { StaggerChildren, StaggerItem } from "@/components/motion/stagger-children";
+import { FadeIn } from "@/components/motion/fade-in";
 import { SectionShell } from "@/components/ui/section-shell";
 import { steps } from "@/content/how-it-works";
 import { cn } from "@/lib/utils";
@@ -9,6 +10,12 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   smartphone: Smartphone,
   star: Star,
 };
+
+const FEATURE_PILLS = [
+  { icon: Zap,             label: "Opens review page in under a second"    },
+  { icon: RefreshCw,       label: "Change destination any time — no new hardware" },
+  { icon: LayoutDashboard, label: "Free dashboard included, forever"       },
+] as const;
 
 export function HowItWorks() {
   return (
@@ -86,6 +93,23 @@ export function HowItWorks() {
           );
         })}
       </StaggerChildren>
+
+      {/* Feature capability strip */}
+      <FadeIn delay={0.2} className="mt-10 sm:mt-12">
+        <div className="grid gap-3 sm:grid-cols-3">
+          {FEATURE_PILLS.map(({ icon: Icon, label }) => (
+            <div
+              key={label}
+              className="flex items-center gap-3 rounded-xl border border-neutral-100 bg-neutral-50 px-4 py-3"
+            >
+              <Icon className="h-4 w-4 shrink-0 text-brand-500" aria-hidden="true" />
+              <span className="text-sm font-medium text-neutral-700 text-pretty leading-snug">
+                {label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </FadeIn>
     </SectionShell>
   );
 }

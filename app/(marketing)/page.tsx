@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/marketing/hero";
 import { ProofRibbon } from "@/components/marketing/proof-ribbon";
 import { HowItWorks } from "@/components/marketing/how-it-works";
-import { ProductFamily } from "@/components/marketing/product-family";
 import dynamic from "next/dynamic";
 // ProductShowcase is the largest client bundle on the page (tab state,
 // AnimatePresence, FamilySwitcher, ShowcaseVariantCard). Dynamic import splits
@@ -14,18 +13,15 @@ const ProductShowcase = dynamic(
     }))
 );
 // ShopSection is a sizable interactive client bundle. Defer it so the critical
-// path (hero, proof ribbon, logo bar, how it works) hydrates first.
+// path (hero, proof ribbon, how it works) hydrates first.
 const ShopSection = dynamic(
   () =>
     import("@/components/marketing/shop-section").then((m) => ({
       default: m.ShopSection,
     }))
 );
-import { UseCaseGrid } from "@/components/marketing/use-case-grid";
 import { GrowthSection } from "@/components/marketing/growth-section";
-import { ComparisonSection } from "@/components/marketing/comparison-section";
 import { Testimonials } from "@/components/marketing/testimonials";
-import { Features } from "@/components/marketing/features";
 import { FAQ } from "@/components/marketing/faq";
 import { CTAStrip } from "@/components/marketing/cta-strip";
 import { StickyCTA } from "@/components/marketing/sticky-cta";
@@ -67,13 +63,9 @@ export default function HomePage() {
       <ProofRibbon />
       <ShopSection />
       <HowItWorks />
-      <ProductFamily />
       <ProductShowcase />
-      <UseCaseGrid />
       <GrowthSection />
-      <ComparisonSection />
       <Testimonials />
-      <Features />
       <FAQ />
       <CTAStrip />
       <StickyCTA />

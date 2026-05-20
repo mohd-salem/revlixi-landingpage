@@ -50,10 +50,7 @@ export function Nav() {
           className="flex items-center hover:opacity-80 transition-opacity focus-visible:ring-2 focus-visible:ring-brand-500 rounded-md"
           aria-label="REVLIXI — home"
         >
-          <RevlixiLogo
-            iconSize={20}
-            wordmarkClassName="text-neutral-950"
-          />
+          <RevlixiLogo height={34} />
         </Link>
 
         {/* Desktop navigation */}

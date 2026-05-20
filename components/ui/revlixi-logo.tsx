@@ -6,11 +6,12 @@
 //   Wordmark   → currentColor (defaults to dark, adapts to dark backgrounds)
 //
 // Exports:
-//   <RevlixiIcon />       — standalone NFC node mark, currentColor
+//   <RevlixiIcon />       — standalone NFC node mark SVG, currentColor
 //   <RevlixiWordmark />   — "REVLIXI" text only, currentColor
-//   <RevlixiLogo />       — icon + wordmark combo (default for nav/header use)
+//   <RevlixiLogo />       — PNG brand mark (icon + wordmark combined image)
 // ──────────────────────────────────────────────────────────────────────────────
 
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 // ─── Icon mark ────────────────────────────────────────────────────────────────
@@ -72,25 +73,37 @@ export function RevlixiWordmark({ className }: WordmarkProps) {
   );
 }
 
-// ─── Full logo (icon + wordmark) ──────────────────────────────────────────────
+// ─── Full logo (PNG image) ────────────────────────────────────────────────────
+// Uses the brand PNG from /public/images/logo.png.
+// object-cover crops the padding that surrounds the logo content in the
+// square source file, ensuring the mark renders crisply at nav scale.
 
 interface LogoProps {
   className?: string;
-  iconColor?: string;
-  wordmarkClassName?: string;
-  iconSize?: number;
+  /** Height in px — controls rendered size. Default 36. */
+  height?: number;
+  /** Optional accessible label override. */
+  alt?: string;
 }
 
 export function RevlixiLogo({
   className,
-  iconColor = "#14B8C4",
-  wordmarkClassName,
-  iconSize = 22,
+  height = 36,
+  alt = "REVLIXI",
 }: LogoProps) {
+  // The source image is 1080×1080 with the logo content centred in the middle
+  // ~21% of the height. Displaying at a 4:1 aspect with object-cover zooms in
+  // on that centre band so the wordmark is fully legible at small nav sizes.
+  const width = Math.round(height * 4);
+
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
-      <RevlixiIcon color={iconColor} size={iconSize} />
-      <RevlixiWordmark className={wordmarkClassName} />
-    </span>
+    <Image
+      src="/images/logo.png"
+      alt={alt}
+      width={width}
+      height={height}
+      className={cn("object-cover", className)}
+      priority
+    />
   );
 }

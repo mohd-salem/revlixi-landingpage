@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -56,11 +58,17 @@ export function CTAStrip() {
           {/* CTAs */}
           <FadeIn delay={0.24}>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button size="xl" variant="gold" asChild>
-                <Link href="#shop">
-                  Shop Now — From $19
-                  <ArrowRight className="ml-1 h-5 w-5" aria-hidden="true" />
-                </Link>
+              <Button
+                size="xl"
+                variant="gold"
+                onClick={() =>
+                  document
+                    .getElementById("shop")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                Shop Now
+                <ArrowRight className="ml-1 h-5 w-5" aria-hidden="true" />
               </Button>
               <Button
                 size="xl"

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Instagram, Twitter } from "lucide-react";
 import { RevlixiLogo } from "@/components/ui/revlixi-logo";
@@ -62,12 +64,17 @@ export function Footer() {
             <ul className="flex flex-col gap-2.5" role="list">
               {footerNav.products.map((item) => (
                 <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-neutral-600 hover:text-neutral-950 transition-colors"
+                  <button
+                    type="button"
+                    onClick={() =>
+                      document
+                        .getElementById("shop")
+                        ?.scrollIntoView({ behavior: "smooth" })
+                    }
+                    className="text-sm text-neutral-600 hover:text-neutral-950 transition-colors text-left"
                   >
                     {item.label}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>

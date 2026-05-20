@@ -29,15 +29,17 @@ export function StickyCTA() {
   return (
     <AnimatePresence>
       {visible && !dismissed && (
-        <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          transition={slideTransition}
+        <div
           className="fixed bottom-4 sm:bottom-5 left-1/2 z-[90] w-full max-w-lg -translate-x-1/2 px-3 sm:px-4"
           role="complementary"
           aria-label="Shop shortcut"
         >
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            transition={slideTransition}
+          >
           <div className="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-4 py-3.5 shadow-[0_8px_40px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.04)]">
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-semibold text-neutral-950">
@@ -63,7 +65,8 @@ export function StickyCTA() {
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
-        </motion.div>
+          </motion.div>
+        </div>
       )}
     </AnimatePresence>
   );

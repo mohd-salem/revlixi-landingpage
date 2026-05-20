@@ -8,8 +8,8 @@ import type { ComparisonRow } from "@/types";
 export const comparisonRows: ComparisonRow[] = [
   {
     feature: "Starting price",
-    stand:   "$49+",
-    card:    "$29+",
+    stand:   "$25+",
+    card:    "$23+",
     sticker: "$19+",
   },
   {
@@ -62,8 +62,8 @@ export const comparisonRows: ComparisonRow[] = [
   },
   {
     feature: "Construction",
-    stand:   "Heavy-gauge aluminum",
-    card:    "Epoxy-sealed PVC",
+    stand:   "Durable acrylic",
+    card:    "PVC",
     sticker: "Weatherproof vinyl",
   },
   {

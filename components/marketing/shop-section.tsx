@@ -21,12 +21,10 @@ import {
   ShoppingCart,
   Bell,
   Check,
-  ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SectionShell } from "@/components/ui/section-shell";
 import { catalog } from "@/content/catalog";
-import { comparisonRows } from "@/content/comparison";
 import type { CatalogColor, CatalogProductType, CatalogVariant } from "@/types";
 
 // ─── Icon resolver ────────────────────────────────────────────────────────────
@@ -157,9 +155,8 @@ function PackCard({ variant }: { variant: CatalogVariant }) {
 // ─── ShopSection ─────────────────────────────────────────────────────────────
 
 export function ShopSection() {
-  const [activeType, setActiveType]     = useState<CatalogProductType>("stand-classic");
-  const [activeColor, setActiveColor]   = useState<CatalogColor>("black");
-  const [showComparison, setShowComparison] = useState(false);
+  const [activeType, setActiveType]   = useState<CatalogProductType>("stand-classic");
+  const [activeColor, setActiveColor] = useState<CatalogColor>("black");
 
   const activeProduct = catalog.find((p) => p.type === activeType) ?? catalog[0];
   const ProductIcon   = ICON_MAP[activeProduct.icon] ?? Monitor;
@@ -335,68 +332,6 @@ export function ShopSection() {
         </div>
       </div>
 
-      {/* ── Compare Stand vs Card vs Sticker ── */}
-      <div className="border-t border-neutral-200 pt-6">
-        <button
-          onClick={() => setShowComparison((v) => !v)}
-          className="flex items-center gap-2 text-sm font-semibold text-brand-600 hover:text-brand-700 transition-colors"
-          aria-expanded={showComparison}
-          aria-controls="compare-table"
-        >
-          <ChevronDown
-            className={cn("h-4 w-4 transition-transform duration-200", showComparison && "rotate-180")}
-            aria-hidden="true"
-          />
-          {showComparison ? "Hide" : "Compare"} Stand vs Card vs Sticker
-        </button>
-
-        {showComparison && (
-          <div
-            id="compare-table"
-            className="mt-4 overflow-x-auto rounded-2xl border border-neutral-200"
-          >
-            <table className="w-full border-collapse text-sm">
-              <thead>
-                <tr className="border-b border-neutral-100 bg-neutral-50">
-                  <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.08em] text-neutral-400 w-[35%]">
-                    Feature
-                  </th>
-                  {(["Stand", "Card", "Sticker"] as const).map((h) => (
-                    <th key={h} className="px-4 py-3 text-center text-[11px] font-bold uppercase tracking-[0.08em] text-neutral-700">
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-neutral-50">
-                {comparisonRows.map((row) => (
-                  <tr key={row.feature} className="bg-white transition-colors hover:bg-neutral-50/60">
-                    <td className="px-4 py-3 text-neutral-600">
-                      {row.feature}
-                      {row.note && (
-                        <span className="ml-1.5 text-[11px] text-neutral-400">({row.note})</span>
-                      )}
-                    </td>
-                    {(["stand", "card", "sticker"] as const).map((p) => (
-                      <td key={p} className="px-4 py-3 text-center">
-                        {typeof row[p] === "boolean" ? (
-                          row[p] ? (
-                            <Check className="mx-auto h-4 w-4 text-brand-500" aria-label="Yes" />
-                          ) : (
-                            <span className="text-neutral-300" aria-label="No">—</span>
-                          )
-                        ) : (
-                          <span className="text-neutral-700">{row[p] as string}</span>
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
     </SectionShell>
   );
 }

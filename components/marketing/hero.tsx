@@ -314,7 +314,7 @@ export function Hero() {
           <div className="mb-7 sm:mb-9 flex flex-col items-center gap-3 sm:flex-row lg:items-start animate-hero-fade-up [animation-delay:0.27s]">
             <Button size="xl" variant="gold" asChild>
               <Link href="#shop">
-                Shop Review Review System
+                Shop Revlixi Review System
                 <ArrowRight className="ml-1 h-5 w-5" aria-hidden="true" />
               </Link>
             </Button>
@@ -383,7 +383,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.6 }}
-        className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 lg:flex"
+        className="absolute bottom-3 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 lg:flex"
         aria-hidden="true"
       >
         <div className="flex h-8 w-5 items-start justify-center rounded-full border border-neutral-700 p-[5px]">

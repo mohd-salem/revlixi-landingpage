@@ -35,7 +35,7 @@ function NfcDemoVisual({ reduce }: { reduce: boolean | null }) {
   const phoneAnim = reduce
     ? {}
     : {
-        animate: { x: [60, 180, 180, 50] },
+        animate: { x: [70, 190, 190, 70] },
         transition: {
           duration: 8.0,
           repeat: Infinity,

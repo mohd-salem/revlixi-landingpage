@@ -61,7 +61,7 @@ function NfcDemoVisual({ reduce }: { reduce: boolean | null }) {
 
   return (
     <div
-      className="relative flex h-[260px] sm:h-[460px] lg:h-[780px] w-full items-center justify-center select-none overflow-visible"
+      className="relative flex h-[340px] sm:h-[480px] lg:h-[780px] w-full items-center justify-center select-none overflow-visible"
       aria-hidden="true"
     >
       {/* Ambient glow */}
@@ -72,7 +72,7 @@ function NfcDemoVisual({ reduce }: { reduce: boolean | null }) {
       {/* Dot texture */}
       <div className="pointer-events-none absolute inset-0 bg-dot-grid-light" />
 
-      <div className="relative flex items-center justify-center gap-1 scale-[0.48] sm:scale-[0.65] lg:scale-100 origin-center">
+      <div className="relative flex items-center justify-center gap-1 scale-[0.62] sm:scale-[0.70] lg:scale-100 origin-center">
         {/* Phone — slides left→right to simulate NFC tap */}
         <motion.div className="relative z-20" {...phoneAnim}>
           {/* iPhone 17 Pro Max frame */}

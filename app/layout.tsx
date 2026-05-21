@@ -81,8 +81,8 @@ export const metadata: Metadata = {
     creator: "@revlixi",
   },
   icons: [
-    { rel: "icon", url: "/hero-ico-black.ico", media: "(prefers-color-scheme: light)" },
-    { rel: "icon", url: "/hero-ico-white.ico", media: "(prefers-color-scheme: dark)" },
+    { rel: "icon", url: "/images/hero-ico-black.ico", media: "(prefers-color-scheme: light)" },
+    { rel: "icon", url: "/images/hero-ico-white.ico", media: "(prefers-color-scheme: dark)" },
   ],
 };
 
